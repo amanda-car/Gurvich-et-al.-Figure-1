@@ -1,0 +1,114 @@
+---
+title: "Gurvich et al. and new Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+---
+title: "Dual role of starvation signaling in promoting growth and recovery Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Data was read in using readxl, I retrived the data from https://doi.org/10.1371/journal.pbio.2002039.s009
+### Make sure to chose the data from figure 1c. I isolated each of the four conditions from each other to make the heat maps a little easier to make.
+```{r}
+###Nopi=matrix of RNA seq under nophosphate conditions
+###X02corrmatrix=correlation matrix of .02mM phosphate conditions
+###X05corrmatrix=correlation matrix of .05mM phosphate conditions
+###X06corrmatrix=correlation matrix of .06mM phosphate conditions
+###X06mMphosphate matrix=used to make heatmap
+###X2mMpi matrix=used to make heatmap
+###X5mMpi matrix=used to make heatmap
+###X6mMcorrectmatrix=matrix found in supplementary data. It can be found in the same place as the other data.
+```
+### Setting up the matrix and labels
+```{r}
+X<-c("SPL2","PHO8","PHM2","PHO12","PHO84","PHM4","PHO86","PHM3","SDT1","PHO81","ISC10","SNA3","YNL208W","PHM4","YLR346C", "PHO11","VIP1","PHO5","MAF1","PCA1","DUR3","PHM6","ATG19","PHM8","ICY1","PLC1","HPF1","GDE1","YBR287W","ATG22","KCS1","PHO89","DDP1")
+
+No_Pi<-data.frame(X,No_Pi)
+
+Nopi<-as.matrix(No_Pi[,-1])
+
+rownames(NoPi)=(No_Pi[,1])
+```
+###Repeat the above steps for ALL data sets, will show below. I belive that the rownames would have been able to be used only referencing one of the data sets regardless of which one it was. The first column of each data set is identical. 
+### .06mM Phosphate Condition
+```{r}
+X_06mM_phosphate<-Pi_06mM
+
+X_06mM_phosphate<-data.frame(X,X_06mM_phosphate)
+
+X06mMphosphate<-as.matrix(X_06mM_phosphate[,-1])
+
+rownames(X06mMphosphate)=(X_06mM_phosphate[,1])
+```
+### .2mM Phosphate Condition
+```{r}
+X_2mM_Pi<-data.frame(X,X_2mM_Pi)
+
+X2mMPi<-as.matrix(X_2mM_Pi[,-1])
+
+rownames(X2mMPi)=(X_2mM_Pi[,1])
+```
+### .5mM Phosphate Condition
+```{r}
+X_5_mM_Pi<-data.frame(X,X_5_mM_Pi)
+
+X5mMPi<-as.matrix(X_5_mM_Pi[,-1])
+
+rownames(X5mMPi)=(X_5_mM_Pi[,1])
+```
+### Colv and Rowv are used to ensure that the time points do not switch around. Heatmap in the base R backages automatically calculates the similarity between columns and rows and tries to put the most similar ones next to each other.
+###No Pi Heat Map
+``` {r}
+heatmap(as.matrix(Nopi), Colv = NA, Rowv = NA, main = "No Pi Heatmap")
+```
+###.06mM Pi Condition Heat Map
+```{r}
+heatmap(as.matrix(X06mMphosphate), Colv = NA, Rowv = NA, main = ".6mM Pi Heatmap")
+```
+### .2mM Pi Condition Heat Map
+```{r}
+heatmap(as.matrix(X2mMPi), Colv = NA, Rowv = NA, main = ".2mM Pi Heatmap")
+```
+### .5mM Pi Condition Heat Map
+```{r}
+heatmap(as.matrix(X5mMPi), Colv = NA, Rowv = NA, main = ".5mM Pi Heatmap")
+```
+### Correlation Calculation & Assigning Correlations into Matrices
+### .06mM Phosphate Condition
+```{r}
+cor(X06mMphosphate, method=c("pearson"), use="everything")
+
+cor(X06mMphosphate, X06mMphosphate, method=c("pearson"))
+
+X06corrmatrix<-as.matrix(cor(X06mMphosphate, method=c("pearson"), use = "everything"))
+```
+### Correlation Calculation & Assigning Correlations into Matrices
+### .2mM Phosphate Condition
+```{r}
+cor(X2mMPi, method=("pearson"), use="everything")
+X02corrmatriz<-as.matrix(cor(X2mMPi, method=("pearson")))
+```
+### Correlation Calculation & Assigning Correlations into Matrices
+### .5mM Phosphate Condition
+```{r}
+cor(X5mMPi, method = c("pearson"),use="everything")
+X05corrmatrix<-as.matrix(cor(X5mMPi, method = c("pearson")))
+```
+### Pairwise Matrix
+```{r}
+
+heatmap(X06corrmatrix,Colv = NA,Rowv = NA)
+
+heatmap(X02corrmatriz,Colv = NA, Rowv = NA)
+
+heatmap(as.matrix(X06_Correct_Matrix),Colv = NA,Rowv=NA)
+```
