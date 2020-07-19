@@ -1,0 +1,39 @@
+title: "Gurvich et al. Figure 1c. Stress and Other Genome Genes."
+output: html_document
+---
+### This RMD file is going to explore the Stress and Protein encoding genes in S. cerevisiae. This is so that I could recognize the patterns of genes that do not display a first and secondwave as described by the Gurvich et al. paper.
+
+### Setting up 0mM Pi Heatmap 
+  ## Assign the gene names to row names
+```{r}
+x<-c("PRX1","YBR053C","TPS1","SSE2","OM14","GLK1","RTN2","NTH1","TPS2","HSP42","GRX2","GLC3","PIC2","RGI1","SPI1","HSP12","HXK1","PNC1","STF2","UGA1","CTT1","SOL4","AIM17","GRE3","OM45","FMP33","YJR096W","YKL091C","LAP4","MCR1","HSP104","YLR149C","TFS1","SYM1","YLR252W","GSY2","DCS1","TMA10","TSL1","MSC1","YMR090W","PGM2","HFD1","GAD1","YNL200C","GOR1","EFB1","RPL19B","RPS8A","RPL23A","RPL32","RPS11B","GRS1","RPS6B","RPS9B","RPL21A","RPS14A","RPS29B","RPL31A","RPP1A","RPL13A","RPS16B","RPL35B","RPL35A","SES1","RPS11A","RPS13","RPP2B","YDR417C","RPL12B","RPS17B","RPS18A","GUK1","RPL27B","RPL37B","SNU13","RPL12A","RPS24A","RPS8B","RPL23B","RPS26B","RPL30","RPL24A","RPL7A","RPL28","RPS2","RPL1B","RPL9A","RPS25A","RPL26B","RPL11B","RPS23A","RPL24B","RPS0A","RPL14B","RPS20","RPL8A","RPL27A","RPS27B","SSZ1","GAR1","RPL42B","EGD2","RPS4B","RPL2B","RPL34B","RPL16A","RPL40A","RPS21B","TIF2","RPL17B","RPS22A","RPS14B","RPS5","RPS4A","RPL14A","MRT4","TMA19","RPS27A","RPL17A","PRS1","RPS21A","TIF1","RPL40B","RPL8B","RPL15A","RPS0B","RPL22A","RPL10","STM1","RPS31","CBF5","RPL37A","NOP56","YEF3","RPS28B","RPL38","RPS25B","RPP0","RPL26A","RPS22B","SUR4","RPS29A","RPS1A","RPL6B","APT1","RPS17A","RPS18B","RPS1B","RPL6A","URA5","ASC1","RPL13B","RPL36A","GUA1","RPS10B","RPL20A","RPL9B","RPL16B","RPS7B","RPL42A","RPS3","SSB2","RPA49","RPL18B","RPS19B","RPP2A","RPS15","WRS1","RPL18A","RPS19A","RPL25","CDC33","RPL3","RPS7A","RPS28A","RPB8","RPL33B","CAF20","RPS10A","YOR309C","NOP58","RPL20B","RPS12","EGD1","RPL21B","RPS9A","RPS6A","RPL5","RPL33A","RPL1A","SUI3","RPL11A","RPC40","RPS23B","RPL19A","RPL34A","RPL2A")
+
+X0_mM_phosphate_condition_stress_and_protein_encoding_genes<-data.frame(x,X0_mM_phosphate_condition_stress_and_protein_encoding_genes)
+
+Nopistreesandproen<-as.matrix(X0_mM_phosphate_condition_stress_and_protein_encoding_genes[,-2])
+
+rownames(Nopistreesandproen)=(X0_mM_phosphate_condition_stress_and_protein_encoding_genes[,1])
+
+```
+  ##The division of stress and protein enconding genes occurs at EFB1. I will be subsetting the data according to that. 
+```{r}
+
+Stressgenes0<-subset(Nopistreesandproen,row=c("PRX1","YBR053C","TPS1","SSE2","OM14","GLK1","RTN2","NTH1","TPS2","HSP42","GRX2","GLC3","PIC2","RGI1","SPI1","HSP12","HXK1","PNC1","STF2","UGA1","CTT1","SOL4","AIM17","GRE3","OM45","FMP33","YJR096W","YKL091C","LAP4","MCR1","HSP104","YLR149C","TFS1","SYM1","YLR252W","GSY2","DCS1","TMA10","TSL1","MSC1","YMR090W","PGM2","HFD1","GAD1","YNL200C","GOR1"))
+
+Proteinenconding0<-subset(Nopistreesandproen,row=c("EFB1","RPL19B","RPS8A","RPL23A","RPL32","RPS11B","GRS1","RPS6B","RPS9B","RPL21A","RPS14A","RPS29B","RPL31A","RPP1A","RPL13A","RPS16B","RPL35B","RPL35A","SES1","RPS11A","RPS13","RPP2B","YDR417C","RPL12B","RPS17B","RPS18A","GUK1","RPL27B","RPL37B","SNU13","RPL12A","RPS24A","RPS8B","RPL23B","RPS26B","RPL30","RPL24A","RPL7A","RPL28","RPS2","RPL1B","RPL9A","RPS25A","RPL26B","RPL11B","RPS23A","RPL24B","RPS0A","RPL14B","RPS20","RPL8A","RPL27A","RPS27B","SSZ1","GAR1","RPL42B","EGD2","RPS4B","RPL2B","RPL34B","RPL16A","RPL40A","RPS21B","TIF2","RPL17B","RPS22A","RPS14B","RPS5","RPS4A","RPL14A","MRT4","TMA19","RPS27A","RPL17A","PRS1","RPS21A","TIF1","RPL40B","RPL8B","RPL15A","RPS0B","RPL22A","RPL10","STM1","RPS31","CBF5","RPL37A","NOP56","YEF3","RPS28B","RPL38","RPS25B","RPP0","RPL26A","RPS22B","SUR4","RPS29A","RPS1A","RPL6B","APT1","RPS17A","RPS18B","RPS1B","RPL6A","URA5","ASC1","RPL13B","RPL36A","GUA1","RPS10B","RPL20A","RPL9B","RPL16B","RPS7B","RPL42A","RPS3","SSB2","RPA49","RPL18B","RPS19B","RPP2A","RPS15","WRS1","RPL18A","RPS19A","RPL25","CDC33","RPL3","RPS7A","RPS28A","RPB8","RPL33B","CAF20","RPS10A","YOR309C","NOP58","RPL20B","RPS12","EGD1","RPL21B","RPS9A","RPS6A","RPL5","RPL33A","RPL1A","SUI3","RPL11A","RPC40","RPS23B","RPL19A","RPL34A","RPL2A"))
+```
+  ##creating matrices of the data
+```{r}
+Stress0matrix<-as.matrix(Stressgenes0[,-1])
+
+Protein0matrix<-as.matrix(Proteinenconding0[,-1])
+```
+  ##creating heatmaps of stress and protein genes
+```{r}
+heatmap(as.matrix(Stress0matrix),Colv = NA, Rowv = NA)
+
+heatmap(as.matrix(Protein0matrix),Colv=NA, Rowv=NA)
+is.numeric(Stress0matrix)
+is.numeric(Protein0matrix)
+
+```
